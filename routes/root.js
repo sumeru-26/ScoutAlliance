@@ -1,14 +1,16 @@
 import express from 'express';
-import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const rootRoute = express.Router();
 
-const __dirname = dirname(join(process.cwd(),'ScoutAlliance/'));
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const path = join(__dirname, '..', 'static');
+
 
 rootRoute.get('/', (req, res) => {
-    res.sendFile(join(__dirname, './static/index.html'));
+    res.sendFile(join(path, 'index.html'));
 });
 
 export default rootRoute;
