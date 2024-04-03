@@ -10,7 +10,7 @@ const STATICS_PATH = join(__dirname, '..', 'static');
 
 
 rootRoute.get('/', (req, res) => {
-    res.sendFile(join(STATICS_PATH, 'index.html'));
+    res.render('home');
 });
 
 export default rootRoute;
