@@ -1,8 +1,10 @@
+import 'dotenv/config'
+
 import express from 'express';
-import { createServer } from 'node:http';
 import { engine } from 'express-handlebars';
 
 import rootRoute from './routes/root.js';
+import infoRoute from './routes/info.js';
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.engine('hbs', engine({
 app.set('views', './views');
 
 app.use('/', rootRoute);
+app.use('/info', infoRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port);
