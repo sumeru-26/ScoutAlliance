@@ -23,9 +23,7 @@ async function getSchedule(team, event_key) {
 infoRoute.get('/schedule', (req, res) => {
     getSchedule(2374, "2024orwil").then(
         (schedule) => {
-            //Handlebars.registerHelper('isQm', function (value) {
-                return value.comp_level == "qm";
-            })
+            
             res.render('schedule/index', {schedule: schedule});
         }
     );
