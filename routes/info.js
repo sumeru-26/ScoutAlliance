@@ -26,6 +26,9 @@ Handlebars.registerHelper('isqm', function (value) {
 Handlebars.registerHelper('teamkey', function (value) {
     return value.substring(3);
 });
+Handlebars.registerHelper('isSchedule', function (value) {
+    return isSchedule == true;
+})
 
 infoRoute.get('/schedule', (req, res) => {
     let team = "";
@@ -42,8 +45,9 @@ infoRoute.get('/schedule', (req, res) => {
     getSchedule(team, event).then(
         (schedule) => {
             console.log(schedule);
+            let isSchedule = true;
             if (schedule.Error) {
-                res.render('schedule/blank');
+                isSchedule = false;
             }
             else {
                 console.log(schedule)
@@ -54,7 +58,7 @@ infoRoute.get('/schedule', (req, res) => {
                         return 1;
                     return 0;
                 });
-                res.render('schedule/index', {schedule: schedule});
+                res.render('schedule/index', {schedule: schedule, isSchedule: isSchedule});
             }
         }
     );
