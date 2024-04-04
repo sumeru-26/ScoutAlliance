@@ -33,17 +33,4 @@
         <th>Red 2</th>
         <th>Red 3</th>
     </tr>
-    {{#each schedule}}
-    {{#if (isqm this)}}
-        <tr>
-            <td>{{this.match_number}}</td>
-            {{#each this.alliances.blue.team_keys}}
-            <td>{{teamkey this}}</td>
-            {{/each}}
-            {{#each this.alliances.red.team_keys}}
-            <td>{{teamkey this}}</td>
-            {{/each}}
-        </tr>
-    {{/if}}
-    {{/each}}
 </table>

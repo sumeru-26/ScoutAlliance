@@ -15,7 +15,7 @@ async function getSchedule(team, event_key) {
         return schedule;
     }
     catch (error) {
-        console.error(error);
+        console.log(error);
     }
     
 }
@@ -28,12 +28,34 @@ Handlebars.registerHelper('teamkey', function (value) {
 });
 
 infoRoute.get('/schedule', (req, res) => {
-    getSchedule(2374, "2024orwil").then(
+    let team = "";
+    let event = "";
+    console.log(req.header("team") + req.header("event"));
+    if (req.header) {
+        try {
+            team = req.header("team");
+            event = req.header("event");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    getSchedule(team, event).then(
         (schedule) => {
-            schedule.forEach(match => {
-                console.log(`${match.comp_level}: ${match.comp_level == 'qm'}`)
-            });
-            res.render('schedule/index', {schedule: schedule});
+            console.log(schedule);
+            if (schedule.Error) {
+                res.render('schedule/blank');
+            }
+            else {
+                console.log(schedule)
+                schedule.sort(function (a, b) {
+                    if (a.match_number < b.match_number)
+                        return -1;
+                    else if (a.match_number > b.match_number)
+                        return 1;
+                    return 0;
+                });
+                res.render('schedule/index', {schedule: schedule});
+            }
         }
     );
     
