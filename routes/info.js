@@ -1,5 +1,5 @@
 import express from 'express';
-import 'handlebars';
+import Handlebars from 'handlebars';
 
 const infoRoute = express.Router();
 
@@ -20,10 +20,19 @@ async function getSchedule(team, event_key) {
     
 }
 
+Handlebars.registerHelper('isqm', function (value) {
+    return value.comp_level == 'qm';
+});
+Handlebars.registerHelper('teamkey', function (value) {
+    return value.substring(3);
+});
+
 infoRoute.get('/schedule', (req, res) => {
     getSchedule(2374, "2024orwil").then(
         (schedule) => {
-            
+            schedule.forEach(match => {
+                console.log(`${match.comp_level}: ${match.comp_level == 'qm'}`)
+            });
             res.render('schedule/index', {schedule: schedule});
         }
     );
