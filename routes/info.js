@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import express from 'express';
 import Handlebars from 'handlebars';
 
@@ -30,27 +32,31 @@ Handlebars.registerHelper('isSchedule', function (value) {
     return isSchedule == true;
 })
 
+
+const scheduleTable = fs.readFileSync('views/schedule/partials/scheduleTable.hbs').toString();
+Handlebars.registerPartial('scheduleTable', Handlebars.compile(scheduleTable));
+
 infoRoute.get('/schedule', (req, res) => {
-    let team = "";
-    let event = "";
+    let team = "2374";
+    let event = "2024orwil";
     console.log(req.header("team") + req.header("event"));
     if (req.header) {
         try {
-            team = req.header("team");
-            event = req.header("event");
+            //team = req.header("team");
+            //event = req.header("event");
         } catch (error) {
             console.log(error);
         }
     }
     getSchedule(team, event).then(
         (schedule) => {
-            console.log(schedule);
+            console.log(JSON.stringify(schedule));
             let isSchedule = true;
             if (schedule.Error) {
                 isSchedule = false;
             }
             else {
-                console.log(schedule)
+                //console.log(schedule)
                 schedule.sort(function (a, b) {
                     if (a.match_number < b.match_number)
                         return -1;

@@ -8,6 +8,7 @@
         <th>Red 2</th>
         <th>Red 3</th>
     </tr>
+    {{#if isSchedule}}
     {{#each schedule}}
     {{#if (isqm this)}}
         <tr>
@@ -21,4 +22,5 @@
         </tr>
     {{/if}}
     {{/each}}
+    {{/if}}
 </table>
