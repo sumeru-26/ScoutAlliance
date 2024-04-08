@@ -25,6 +25,11 @@ app.use('/', rootRoute);
 app.use('/info', infoRoute);
 app.use('/chat', chatRoute)
 
+/*
+to do:
+- import event handling from other files
+- rooms
+*/
 
 io.on('connection', (socket) =>{
     console.log('a user connected');
